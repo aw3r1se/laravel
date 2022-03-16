@@ -7,9 +7,6 @@ USER root
 # Set working directory
 WORKDIR /var/www
 
-#фикс
-RUN chmod -R 777 storage
-
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -45,9 +42,16 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Установка  nodej 14
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -y nodejs
+
 # Copy existing application directory contents
 COPY . /var/www
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
+
+#фикс
+RUN chmod -R 777 /var/www/storage
