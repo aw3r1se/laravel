@@ -1,8 +1,9 @@
 # Deploy
-##Docker
+###Docker
 - docker-compose build
 - docker-compose up -d
-##Внутри контейнера
+
+###Внутри контейнера
 - docker-compose exec app bash
 - composer install
 - cp .env.example .env
